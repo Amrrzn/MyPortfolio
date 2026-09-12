@@ -27,6 +27,23 @@ app.post('/api/tasks', async (req, res) => {
   res.json(data[0]);
 });
 
+// 3. PUT update a task (toggle completion or edit)
+app.put('/api/tasks/:id', async (req, res) => {
+  const { id } = req.params;
+  const updates = req.body;
+  const { data, error } = await supabase.from('tasks').update(updates).eq('id', id).select();
+  if (error) return res.status(500).json({ error: error.message });
+  res.json(data[0]);
+});
+
+// 4. DELETE a task
+app.delete('/api/tasks/:id', async (req, res) => {
+  const { id } = req.params;
+  const { error } = await supabase.from('tasks').delete().eq('id', id);
+  if (error) return res.status(500).json({ error: error.message });
+  res.json({ message: 'Task deleted successfully' });
+});
+
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
