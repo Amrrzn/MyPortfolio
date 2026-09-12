@@ -6,7 +6,7 @@ function App() {
   const [title, setTitle] = useState('');
   const [loading, setLoading] = useState(true);
 
-  const API_URL = 'http://localhost:5001/api/tasks';
+  const API_URL = 'https://myportfolio-xbuc.onrender.com/api/tasks';
 
   const fetchTasks = async () => {
     try {
